@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departures</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            gap: 20px; /* space between columns */
+            flex-wrap: wrap; /* wrapping if more stops are added */
+        }
+        .site {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            flex: 1; 
+            min-width: 300px; /* proper layout on small screens */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #2e629b;
+            color: white;
+        }
+        td:last-child {
+            text-align: right; /* aligns times to the right */
+        }
+
+    </style>
+    <script>
+        setTimeout(() => {
+            location.reload(); // refresh page every 60 seconds
+        }, 60000);
+    </script>
+</head>
+<body>
+    <h1>Departures</h1>
+    <div class="container">
+        {{ range .results }}
+        <div class="site">
+            <h2>{{ .Site }}</h2>
+            <table>
+                <tr>
+                    <th>Line</th>
+                    <th>Destination</th>
+                    <th>Time</th>
+                </tr>
+                {{ range .Departures }}
+                <tr>
+                    <td>{{ .Line.Designation }}</td>
+                    <td>{{ .Destination }}</td>
+                    <td>{{ .Display }}</td>
+                </tr>
+                {{ end }}
+            </table>
+        </div>
+        {{ end }}
+    </div>
+</body>
+</html>
